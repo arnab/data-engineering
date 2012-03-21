@@ -3,7 +3,7 @@ This is an attempt at cracking the data challenge presented by [LivingSocial](ht
 
 [![Build Status](https://secure.travis-ci.org/arnab/data-engineering.png?branch=master)](http://travis-ci.org/arnab/data-engineering)
 
-[![Dependency Status](https://gemnasium.com/arnab/data-engineering.png?travis)](https://gemnasium.com/arnab/data-engineering)
+[![Dependency Status](https://gemnasium.com/arnab/data-engineering.png)](https://gemnasium.com/arnab/data-engineering)
 
 # Description
 My attempt uses Rails and a RESTfult style for the various interactions. TODO: More details.
