@@ -1,5 +1,9 @@
 # Data Engineering Challenge
-This is an attempt at cracking the data challenge presented by LivingSocial. The original readme, including a good description of the challenge can be found [here](https://github.com/lschallenges/data-engineering/blob/master/README.markdown).
+This is an attempt at cracking the data challenge presented by [LivingSocial](http://corporate.livingsocial.com/careersoverview). The original readme, including a good description of the challenge can be found [here](https://github.com/lschallenges/data-engineering/blob/master/README.markdown).
+
+[![Build Status](https://secure.travis-ci.org/arnab/data-engineering.png?branch=master)](http://travis-ci.org/arnab/data-engineering)
+
+[![Dependency Status](https://gemnasium.com/arnab/data-engineering.png?travis)](https://gemnasium.com/arnab/data-engineering)
 
 # Description
 My attempt uses Rails and a RESTfult style for the various interactions. TODO: More details.
