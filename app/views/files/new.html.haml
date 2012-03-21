@@ -1,2 +1,4 @@
-%h1 Files#new
-%p Find me in app/views/files/new.html.haml
+%div
+  = form_for(:file, :url => files_path) do |f|
+    = f.file_field :data
+    = f.submit "Upload"
