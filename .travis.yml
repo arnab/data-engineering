@@ -1,5 +1,6 @@
 language: ruby
+script: "bundle exec rake spec"
 rvm:
   - 1.9.2
   - 1.9.3
-  - rbx
+  - rbx-19mode
