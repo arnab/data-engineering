@@ -6,3 +6,7 @@ When /^I go to (.+)$/ do |page_name|
     raise "Unknown page: #{page_name}"
   end
 end
+
+Then /^I should see a "([^"]*)" button$/ do |button_name|
+  page.should have_button(button_name)
+end

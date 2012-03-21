@@ -6,5 +6,3 @@ Feature: Ability to upload a tab-separated data file into the app
 Scenario: File with invalid format
   When I go to the file import page
   Then I should see a "Upload" button
-
-
