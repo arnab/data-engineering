@@ -8,7 +8,6 @@ Scenario: Home Page should be the file import page
   Then I should see "Import Your Data"
   Then I should see a "Upload" button
 
-@wip
 Scenario: Not uploading a file
   When I go to the file import page
     And I click "Upload"

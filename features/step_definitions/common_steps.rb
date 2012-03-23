@@ -22,7 +22,7 @@ When /^I click "([^"]*)"$/ do |button_name|
 end
 
 Then /^I should see (\d+) validation errors?$/ do |num|
-  expected_str = "The file contains #{num} error"
+  expected_str = "The form contains #{num} error"
   expected_str += "s" if num.to_i > 1
   page.should have_content(expected_str)
 end

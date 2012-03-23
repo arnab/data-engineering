@@ -4,11 +4,9 @@
 .row
   .span6.offset4
     = form_for(@data_file) do |f|
+      = render 'shared/error_messages', :object => f.object
       .span6
-        = f.label :data, 'Please upload a tab-delimited file'
-        %span.help-block
-          example:
-          = link_to 'here', 'https://raw.github.com/lschallenges/data-engineering/master/example_input.tab'
+        = f.label :data, data_file_label_content_with_link
         = f.file_field :data, :class => 'input-xlarge'
       .span6
         = f.submit "Upload", :class => "btn btn-large btn-primary"
