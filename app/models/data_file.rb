@@ -5,7 +5,25 @@ class DataFile
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
-  validates_presence_of :data
+  class LineFormatValidator < ActiveModel::Validator
+    def validate(record)
+      return unless record.data.present?
+
+      record.data.each_with_index do |row, i|
+        line_num = i + 1 # 0-based indexes
+        row.delete_if { |column_name, val| val.nil? }
+
+        # We need 6 columns per row
+        if row.size != 6
+          msg = "has #{row.size} fields instead of the required 6"
+          record.errors.add :base, "Line #{line_num} #{msg}: #{row.to_s}"
+        end
+      end
+    end
+  end
+
+  validates :data, presence: true
+  validates_with LineFormatValidator
 
   attr_accessor :data
 
