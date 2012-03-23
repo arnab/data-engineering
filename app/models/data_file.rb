@@ -1,4 +1,5 @@
 require 'active_model'
+require 'csv'
 
 class DataFile
   include ActiveModel::Conversion
@@ -9,8 +10,11 @@ class DataFile
   attr_accessor :data
 
   def initialize(attributes = {})
-    attributes ||= {}
-    @data = attributes[:data]
+    if attributes.present?
+      file = attributes[:data]
+      contents = file.present? ? file.read : ""
+      @data = CSV.parse(contents, col_sep: "\t", headers: :first_row, return_headers: false)
+    end
   end
 
   def persisted?

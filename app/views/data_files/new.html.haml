@@ -3,7 +3,7 @@
 
 .row
   .span6.offset4
-    = form_for(@data_file) do |f|
+    = form_for(@data_file, html: {multipart: true}) do |f|
       = render 'shared/error_messages', :object => f.object
       .span6
         = f.label :data, data_file_label_content_with_link

@@ -14,10 +14,22 @@ Scenario: Not uploading a file
   Then I should see 1 validation error
     And nothing in the DB should change
 
+Scenario: Uploading empty file
+  When I upload the file "empty_file.txt"
+  Then I should see 1 validation error
+    And nothing in the DB should change
+
 Scenario: File with only header and no data rows
+  When I upload the file "file_with_only_header.txt"
+  Then I should see 1 validation error
+    And nothing in the DB should change
 
 Scenario: File with bad format (non tab-delimited)
 
 Scenario: File with invalid data
 
 Scenario: File with invalid format
+
+Scenario: Perfectly valid file
+  When I upload the file "example_input.txt"
+  Then I should not see any validation errors

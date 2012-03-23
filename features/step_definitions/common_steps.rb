@@ -27,6 +27,10 @@ Then /^I should see (\d+) validation errors?$/ do |num|
   page.should have_content(expected_str)
 end
 
+Then /^I should not see any validation errors$/ do
+  page.should_not have_content /The form contains \d+ errors?/
+end
+
 Then /^nothing in the DB should change$/ do
   pending # express the regexp above with the code you wish you had
 end
