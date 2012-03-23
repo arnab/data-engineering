@@ -32,5 +32,9 @@ Then /^I should not see any validation errors$/ do
 end
 
 Then /^nothing in the DB should change$/ do
-  pending # express the regexp above with the code you wish you had
+  # Before every scenario our test DB is cleaned up by database_cleaner.
+  # So just verify that we have 0 rows imported.
+  [Deal, Purchase].each do |model|
+    model.all.count.should be_zero
+  end
 end
