@@ -25,7 +25,7 @@ class DataFile
   validates :data, presence: true
   validates_with LineFormatValidator
 
-  attr_accessor :data
+  attr_accessor :data, :purchases
 
   def initialize(attributes = {})
     if attributes.present?
@@ -33,6 +33,7 @@ class DataFile
       contents = file.present? ? file.read : ""
       @data = CSV.parse(contents, col_sep: "\t", headers: :first_row, return_headers: false)
     end
+    @purchases = []
   end
 
   def persisted?
@@ -40,4 +41,25 @@ class DataFile
     # @see #import
     false
   end
+
+  def import
+    @data.each do |row|
+      purchase, deal = parse_data(row)
+      deal.purchases << purchase
+      raise [deal, purchase].inspect
+      @purchases << purchase
+    end
+
+    if @purchases.all? {|p| p.valid? && p.deal.valid? }
+      @purchases.each do |p|
+        # Also saves associated purchases implicitly
+        p.deal.save
+      end
+    end
+  end
+
+  private
+    def parse_data(row)
+      [Purchase.parse(row), Deal.parse(row)]
+    end
 end

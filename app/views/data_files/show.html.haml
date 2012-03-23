@@ -1,4 +1,5 @@
 = provide :title, 'Data Imported'
 %h1 Data Imported
 
-= debug @data_file
+= debug @data_file.purchases
+= debug @data_file.purchases.map(&:deal)
