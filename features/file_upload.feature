@@ -8,6 +8,17 @@ Scenario: Home Page should be the file import page
   Then I should see "Import Your Data"
   Then I should see a "Upload" button
 
-Scenario: File with invalid format
+@wip
+Scenario: Not uploading a file
   When I go to the file import page
-  Then I should see a "Upload" button
+    And I click "Upload"
+  Then I should see 1 validation error
+    And nothing in the DB should change
+
+Scenario: File with only header and no data rows
+
+Scenario: File with bad format (non tab-delimited)
+
+Scenario: File with invalid data
+
+Scenario: File with invalid format
