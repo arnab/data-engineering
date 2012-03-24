@@ -26,17 +26,17 @@ Scenario: File with only header and no data rows
 
 Scenario: File with bad format (non tab-delimited)
   When I upload the file "example_input.csv"
-  Then I should see 6 validation errors
+  Then I should see 9 validation errors
     And nothing in the DB should change
 
 Scenario: File with not enough columns in every line
   When I upload the file "five_columns.txt"
-  Then I should see 4 validation errors
+  Then I should see 8 validation errors
     And nothing in the DB should change
 
 Scenario: File with not enough columns in one line
   When I upload the file "five_columns_in_one_line.txt"
-  Then I should see 1 validation error
+  Then I should see 3 validation error
     And nothing in the DB should change
 
 Scenario: File with invalid data (missing price)

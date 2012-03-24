@@ -8,4 +8,6 @@ class Deal < ActiveRecord::Base
   validates :price,
     presence: true,
     numericality: { greater_than_or_equal_to: 0 }
+
+  validates_presence_of :description, :merchant_name, :merchant_address
 end
