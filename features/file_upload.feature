@@ -8,5 +8,5 @@ Scenario: Perfectly valid file
   Then I should not see any validation errors
 
 Scenario: Order of fields in file is flexible (as long as all the required fields are there)
-  When I upload the file "ok_file_fields_out_of_order.txt"
+  When I upload the file "fields_out_of_order.txt"
   Then I should not see any validation errors

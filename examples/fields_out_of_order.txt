@@ -1,0 +1,5 @@
+item description	item price	merchant name	merchant address	purchaser name	purchase count
+$10 off $20 of food	10.0	Bob's Pizza	987 Fake St	Snake Plissken	2
+$30 of awesome for $10	10.0	Tom's Awesome Shop	456 Unreal Rd	Amy Pond	5
+$20 Sneakers for $5	5.0	Sneaker Store	123 Fake St Emporium	Marty McFly	1
+$20 Sneakers for $5	5.0	Sneaker Store	123 Fake St Emporium	Snake Plissken	4
