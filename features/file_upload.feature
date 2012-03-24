@@ -55,8 +55,11 @@ Scenario: File with invalid data (negative price)
     And nothing in the DB should change
 
 Scenario: Mis-named headers
+  When I upload the file "misnamed_headers.txt"
+  Then I should see 4 validation error
+    And nothing in the DB should change
 
-Scenario: Duplicate file is detected
+Scenario: Duplicate upload is detected
 
 Scenario: Perfectly valid file
   When I upload the file "example_input.txt"

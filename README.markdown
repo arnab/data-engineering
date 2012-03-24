@@ -51,3 +51,6 @@ Option A is simpler while B is naturally more normalized (no duplication of merc
   * How many times has this customer bought from LivingSocial? Similar to above, in option A you start by querying the purchases model.
 
 The normalization of option B) can easily fall apart with scale though (and obviously Option A scales even less): think about merchants having different locations and now we need to normalize the merchant table further into merchants and merchant_locations. I am not going to attempt to trivialize the data model LivingSocial probably by trying to come up with the most normalized form here, and am instead going to concentrate on simplicity, retaining just enough complexity to be able to easily solve the given requirements (and a few others that I dreamed up above). Hence, my choice at this point is Option A.
+
+## File format validations
+Although it's mentioned that I can assume the file's columns to always remain in the same order and that all the fields will be present, for the sake of completeness I added validations to my models. In doing so, I saw that it was easy enough to make the fields order-independent and thus much more flexible for end-users. Technically, it goes beyond the requirements, but I hope that's ok. Take a look at the cucumber features for examples of such validations.
