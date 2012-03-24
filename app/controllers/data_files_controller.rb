@@ -5,7 +5,7 @@ class DataFilesController < ApplicationController
 
   def create
     @data_file = DataFile.new(params[:data_file])
-    if @data_file.valid? && @data_file.import
+    if @data_file.valid?
       filename = params[:data_file][:data].original_filename
       flash.now[:success] = "Your file '#{filename}' was successfully imported!"
       render 'show'
