@@ -78,8 +78,7 @@ class DataFile
       deal_data.delete_if     {|k,v| ! Deal.attribute_names.include? k.to_s}
       purchase_data.delete_if {|k,v| ! Purchase.attribute_names.include? k.to_s}
 
-      # TODO: find or new
-      deal = Deal.new(deal_data)
+      deal = find_or_initialize_deal_by(deal_data)
       purchase = Purchase.new(purchase_data)
       [deal, purchase].each { |thing| thing.line_num = i + 1}
       deal.purchases << purchase
@@ -93,4 +92,25 @@ class DataFile
     results = [@deals, @purchases].flatten.each { |thing| thing.save }
     results.none? {|r| r == false}
   end
+
+  private
+    # It's highly likely that an uploaded file has a lot of lines (by purchaser) for the same deal.
+    # We don't want to create multiple deals for those, but want to de-dupe.
+    # Also, remember may just be in-memory and not persisted yet.
+    def find_or_initialize_deal_by(data)
+      # First look in the DB
+      deal = Deal.where(data).first
+
+      unless deal
+        # Next look in the in-memory store
+        deal = @deals.find {|in_memory_deal| in_memory_deal.attributes == Deal.new(data).attributes}
+      end
+
+      unless deal
+        # Ok, init it since we could not find it
+        deal = Deal.new(data)
+      end
+
+      deal
+    end
 end

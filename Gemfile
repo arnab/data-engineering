@@ -7,6 +7,10 @@ gem 'bcrypt-ruby', '3.0.1'
 group :development do
   gem 'sqlite3', '1.3.5'
   gem "haml-rails", "~> 0.3.4"
+  unless ENV["CI"]
+    # http://about.travis-ci.org/docs/user/languages/ruby/ (search for ruby-debug)
+    gem 'ruby-debug19', :require => 'ruby-debug'
+  end
 end
 
 # Gems used only for assets and not required
