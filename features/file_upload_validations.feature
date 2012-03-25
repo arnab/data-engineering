@@ -63,5 +63,10 @@ Scenario: Duplicate upload is detected
   Given I have already uploaded the file "example_input.txt"
   When I upload the file "example_input.txt" again
   Then I should see 8 validation errors
-    Then I should have "3" "Deals" in the DB
+    And I should have "3" "Deals" in the DB
     And I should have "4" "Purchases" in the DB
+
+Scenario: Duplicate upload is detected (and the upload process is transactional)
+  Given I have already uploaded the file "duplicate_lines.txt"
+  Then I should see 2 validation errors
+    And nothing in the DB should change

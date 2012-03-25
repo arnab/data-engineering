@@ -26,10 +26,7 @@ class DataFile
     def validate(record)
       record.parse_purchases_and_deals!
       [record.deals, record.purchases].flatten.each do |thing|
-        unless thing.valid?
-          msg = "Line #{thing.line_num}: #{thing.errors.full_messages.join(', ')}"
-          record.errors.add :base, msg
-        end
+        record.add_error_to_base_for(thing) unless thing.valid?
       end
     end
   end
@@ -88,9 +85,26 @@ class DataFile
     end
   end
 
+  # Save all the objects. They are already validated, but something could have changed between the
+  # validation runs and now. So see if they save and rollback if not all of them are saved (avoid partial
+  # file uploads)
   def import
-    results = [@deals, @purchases].flatten.each { |thing| thing.save }
-    results.none? {|r| r == false}
+    ActiveRecord::Base.transaction do
+      save_results = [@deals, @purchases].flatten.map do |thing|
+        saved = thing.save
+        add_error_to_base_for(thing) unless saved
+        saved
+      end
+      raise ActiveRecord::Rollback unless save_results.all? # Not all were saved successfully
+    end
+  end
+
+  # A convenience method to transfer the error messages from the AR objects that this is object is
+  # composed of. Used to show validation errors for purchases and deals together in the DataFile#create
+  # process.
+  def add_error_to_base_for(object)
+    msg = "Line #{object.line_num}: #{object.errors.full_messages.join(', ')}"
+    errors.add :base, msg
   end
 
   private
