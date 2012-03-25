@@ -88,4 +88,9 @@ class DataFile
       @purchases << purchase
     end
   end
+
+  def import
+    results = [@deals, @purchases].flatten.each { |thing| thing.save }
+    results.none? {|r| r == false}
+  end
 end

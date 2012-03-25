@@ -30,11 +30,3 @@ end
 Then /^I should not see any validation errors$/ do
   page.should_not have_content /The form contains \d+ errors?/
 end
-
-Then /^nothing in the DB should change$/ do
-  # Before every scenario our test DB is cleaned up by database_cleaner.
-  # So just verify that we have 0 rows imported.
-  [Deal, Purchase].each do |model|
-    model.all.count.should be_zero
-  end
-end
