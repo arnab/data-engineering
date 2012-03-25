@@ -60,4 +60,8 @@ Scenario: Mis-named headers
     And nothing in the DB should change
 
 Scenario: Duplicate upload is detected
-  Given I TODO
+  Given I have already uploaded the file "example_input.txt"
+  When I upload the file "example_input.txt" again
+  Then I should see 8 validation errors
+    Then I should have "3" "Deals" in the DB
+    And I should have "4" "Purchases" in the DB
