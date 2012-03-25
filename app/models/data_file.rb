@@ -95,7 +95,11 @@ class DataFile
         add_error_to_base_for(thing) unless saved
         saved
       end
-      raise ActiveRecord::Rollback unless save_results.all? # Not all were saved successfully
+      if save_results.all?
+        true
+      else
+        raise ActiveRecord::Rollback# Not all were saved successfully
+      end
     end
   end
 

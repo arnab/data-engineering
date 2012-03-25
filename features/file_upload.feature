@@ -5,12 +5,12 @@ Feature: Ability to upload a tab-separated data file into the app
 
 Scenario: Perfectly valid file
   When I upload the file "example_input.txt"
-  Then I should not see any validation errors
+  Then I should see that it was successfully imported
     And I should have "3" "Deals" in the DB
     And I should have "4" "Purchases" in the DB
 
 Scenario: Order of fields in file is flexible (as long as all the required fields are there)
   When I upload the file "fields_out_of_order.txt"
-  Then I should not see any validation errors
+  Then I should see that it was successfully imported
     And I should have "3" "Deals" in the DB
     And I should have "4" "Purchases" in the DB

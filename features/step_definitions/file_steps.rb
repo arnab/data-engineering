@@ -16,6 +16,6 @@ end
 Given /^I have already uploaded the file "([^"]*)"$/ do |filename|
   steps %Q{
     When I upload the file "#{filename}"
-    Then I should not see any validation errors
+    Then I should see that it was successfully imported
   }
 end

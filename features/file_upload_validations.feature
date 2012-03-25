@@ -66,7 +66,7 @@ Scenario: Duplicate upload is detected
     And I should have "3" "Deals" in the DB
     And I should have "4" "Purchases" in the DB
 
-Scenario: Duplicate upload is detected (and the upload process is transactional)
-  Given I have already uploaded the file "duplicate_lines.txt"
+Scenario: Duplicate lines are detected (and the upload process is transactional)
+  When I upload the file "duplicate_lines.txt"
   Then I should see 2 validation errors
     And nothing in the DB should change

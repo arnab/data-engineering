@@ -36,6 +36,9 @@ group :test do
   gem 'capybara', '1.1.2'
   gem 'cucumber-rails', '~> 1.3.0'
   gem 'database_cleaner', '~> 0.7.0'
+  unless ENV["CI"]
+    gem 'launchy'
+  end
 end
 
 group :production do

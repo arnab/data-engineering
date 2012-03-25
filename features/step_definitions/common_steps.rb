@@ -27,6 +27,7 @@ Then /^I should see (\d+) validation errors?$/ do |num|
   page.should have_content(expected_str)
 end
 
-Then /^I should not see any validation errors$/ do
-  page.should_not have_content /The form contains \d+ errors?/
+Then /^I should see that it was successfully imported$/ do
+  page.should have_content "successfully imported!"
 end
+
