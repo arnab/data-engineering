@@ -4,6 +4,7 @@ class Deal < ActiveRecord::Base
   # transient attribute used to track the line number in the imported file
   # used in showing validation errors
   attr_accessor :line_num
+  attr_accessible :description, :price, :merchant_name, :merchant_address
 
   validates_presence_of :description, :merchant_name, :merchant_address
 

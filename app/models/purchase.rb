@@ -4,6 +4,7 @@ class Purchase < ActiveRecord::Base
   # transient attribute used to track the line number in the imported file
   # used in showing validation errors
   attr_accessor :line_num
+  attr_accessible :purchaser_name, :quantity
 
   validates_presence_of :purchaser_name
 

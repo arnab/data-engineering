@@ -4,6 +4,7 @@ require 'csv'
 class DataFile
   include ActiveModel::Conversion
   include ActiveModel::Validations
+  include ActiveModel::MassAssignmentSecurity
 
   class LineFormatValidator < ActiveModel::Validator
     def validate(record)
@@ -35,8 +36,13 @@ class DataFile
   validates_with LineFormatValidator
   validates_with PurchasesAndDealsValidator
 
+  # Since this model is never persisted, we keep a ref of the objects we do save in here, so we can
+  # show something useful on successful saves.
   attr_accessor :data, :deals, :purchases
+  attr_accessible :data
 
+  # These are the headers we are looking for. This, combined with a lambda we use in parsing the file
+  # (@see #initialize) let's the user have the fields in any order in the file.
   HEADER_MAPPINGS ={
     'purchaser name'   => 'purchaser_name',
     'item description' => 'description',
