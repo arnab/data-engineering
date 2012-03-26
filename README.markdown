@@ -10,6 +10,7 @@ My attempt uses Rails and a RESTfult style for the various interactions. See the
 
 # Links
 1. Live demo, using [heroku](http://www.heroku.com), at [http://arnab-ls-data-challenge.herokuapp.com/](http://arnab-ls-data-challenge.herokuapp.com/)
+1. Note that importing files requires a sign in/up.
 1. Backlog and stories, using [Pivotal Tracker](https://www.pivotaltracker.com), at [https://www.pivotaltracker.com/projects/507765](https://www.pivotaltracker.com/projects/507765)
 1. Continuous integration, using [travis.ci](http://travis-ci.org), at [http://travis-ci.org/arnab/data-engineering](http://travis-ci.org/arnab/data-engineering)
 
@@ -54,3 +55,15 @@ The normalization of option B) can easily fall apart with scale though (and obvi
 
 ## File format validations
 Although it's mentioned that I can assume the file's columns to always remain in the same order and that all the fields will be present, for the sake of completeness I added validations to my models. In doing so, I saw that it was easy enough to make the fields order-independent and thus much more flexible for end-users. Technically, it goes beyond the requirements, but I hope that's ok. Take a look at the cucumber features for examples of such validations.
+
+# TODOs
+Like any project, this is work in progress. As can be seen in the [Pivotal Tracker backlog](https://www.pivotaltracker.com/projects/507765) here are a few things that can be done:
+
+## Redirect-After-Post
+Right now the POST of the file renders the view. This can confuse users if they try to refresh (as it's a form POST the browser shows a warning). We can do a redirect, but to where is an interesting question. We'd probably need either a index page for our deals.
+
+## Huge files
+Right now, everything is done in the HTTP request. Meaning the experience will be bad if the file is huge. The first step will be using something like pjax/ajax. Eventually the file should be processed asynchronously: using something like background-job or resque (or perhaps SQS messages that talk to the processing apps that are running separately). But then again, we don't want to prematurely optimize.
+
+## Code refractor
+Eventually the DataFile model has become kind of big. Perhaps we should create a separate DataFileLine class and have that hold one Deal and one Purchase and the DataFile model holing a collection of DataFileLines. Just an idea.
