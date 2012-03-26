@@ -9,25 +9,26 @@ Feature: New users signing up
 
 Scenario: Unsuccessful attempt (password != confirmation)
   When I try to signup with the following details:
-    | Name | Email            | Password | Confirmation |
-    | joe  | joe@plumbers.org | real     | cool         |
+    | Name | Email            | Password | Confirm Password |
+    | joe  | joe@plumbers.org | real     | cool             |
   Then I should see a validation error "Password doesn't match confirmation"
     And I should have "0" "Users" in the DB
 
 Scenario: Unsuccessful attempt (name and email are taken)
   Given I sign up with:
-    | Name | Email            | Password | Confirmation |
-    | joe  | joe@plumbers.org | awes0me  | awes0me      |
+    | Name | Email            | Password | Confirm Password |
+    | joe  | joe@plumbers.org | awes0me  | awes0me          |
   When I try to signup with the following details:
-    | Name | Email            | Password | Confirmation |
-    | joe  | joe@plumbers.org | t00real  | t00coo       |
+    | Name | Email            | Password | Confirm Password |
+    | joe  | joe@plumbers.org | t00real  | t00coo           |
   Then I should see a validation error "Name has already been taken"
     And I should see a validation error "Email has already been taken"
     And I should have "1" "Users" in the DB
 
 Scenario: Successful attempt
   When I try to signup with the following details:
-    | Name | Email            | Password | Confirmation |
-    | joe  | joe@plumbers.org | awes0me  | awes0me      |
+    | Name | Email            | Password | Confirm Password |
+    | joe  | joe@plumbers.org | awes0me  | awes0me          |
   Then I should see that I successfully signed up
-      And I should have "1" "Users" in the DB
+    And I should be signed in
+    And I should have "1" "Users" in the DB
