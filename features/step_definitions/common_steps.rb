@@ -31,3 +31,7 @@ Then /^I should see that it was successfully imported$/ do
   page.should have_content "successfully imported!"
 end
 
+Then /^I should see a grand total of "([^"]*)"$/ do |expected_total|
+  grand_total = page.find(".grand_total").find(".price")
+  grand_total.should have_content expected_total
+end

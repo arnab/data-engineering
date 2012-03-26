@@ -8,9 +8,11 @@ Scenario: Perfectly valid file
   Then I should see that it was successfully imported
     And I should have "3" "Deals" in the DB
     And I should have "4" "Purchases" in the DB
+    And I should see a grand total of "$95.00"
 
 Scenario: Order of fields in file is flexible (as long as all the required fields are there)
   When I upload the file "fields_out_of_order.txt"
   Then I should see that it was successfully imported
     And I should have "3" "Deals" in the DB
     And I should have "4" "Purchases" in the DB
+    And I should see a grand total of "$95.00"

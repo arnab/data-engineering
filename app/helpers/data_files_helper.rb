@@ -9,4 +9,15 @@ module DataFilesHelper
       "<a href='#{example_input_file_link}'>this</a>."
   )
   end
+
+  def purchases_grouped_by_deals(imported_data_file)
+    imported_data_file.purchases.group_by(&:deal)
+  end
+
+  def purchases_total(purchases)
+    total = purchases.inject(0) do |total, p|
+      total += (p.quantity * p.deal.price)
+    end
+    number_to_currency(total)
+  end
 end
