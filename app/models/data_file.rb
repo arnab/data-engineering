@@ -53,7 +53,6 @@ class DataFile
   }
 
   def initialize(attributes = {})
-    super(attributes)
     if attributes.present?
       @allow_duplicate = attributes[:allow_duplicate]
       file = attributes[:data]
