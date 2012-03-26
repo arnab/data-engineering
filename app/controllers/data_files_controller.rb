@@ -1,4 +1,6 @@
 class DataFilesController < ApplicationController
+  before_filter :signed_in_user, only: [:new, :create]
+
   def new
     @data_file = DataFile.new
   end

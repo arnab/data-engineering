@@ -3,6 +3,14 @@ Feature: Validating user uploaded data files into the app
   As a user
   I want to the app to validate my input files
 
+Background: Create a user
+  Given I sign up with:
+    | Name | Email            | Password | Confirm Password |
+    | joe  | joe@plumbers.org | awes0me  | awes0me          |
+    And I try to signin with the following details:
+      | Email            | Password |
+      | joe@plumbers.org | awes0me  |
+
 Scenario: Home Page should be the file import page
   Given I go to the root page
   Then I should see "Import Your Data"

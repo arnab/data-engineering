@@ -3,6 +3,14 @@ Feature: Ability to upload a tab-separated data file into the app
   As a user
   I want to be able to upload tab-delimited files into the app
 
+Background: Create a user
+  Given I sign up with:
+    | Name | Email            | Password | Confirm Password |
+    | joe  | joe@plumbers.org | awes0me  | awes0me          |
+    And I try to signin with the following details:
+      | Email            | Password |
+      | joe@plumbers.org | awes0me  |
+
 Scenario: Perfectly valid file
   When I upload the file "example_input.txt"
   Then I should see that it was successfully imported
