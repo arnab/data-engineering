@@ -2,27 +2,30 @@
 %h1 Data Imported
 
 %table.table.table-bordered.table-condensed
-  %th Purchased By
-  %th Quantity
-  %th Total
   - purchases_grouped_by_deals(@data_file).each do |deal, purchases|
     %tr.deal
       %td{colspan: 3}
-        %span.description= deal.description
+        %span.description
+          %strong= deal.description
         by
-        %span.merchant_info= "#{deal.merchant_name}, #{deal.merchant_address}"
+        %span.merchant_info
+          %strong= deal.merchant_name
+          , #{deal.merchant_address}
         @
-        %span.price= number_to_currency(deal.price)
+        %span.price
+          %strong= number_to_currency(deal.price)
+      %td.price
+        %strong= purchases_total(purchases)
+
     - purchases.each do |purchase|
       %tr.purchase
+        %td
         %td.purchaser_name= purchase.purchaser_name
-        %td.quantity= purchase.quantity
+        %td.quantity
+          = purchase.quantity
+          units
         %td.toal= number_to_currency(deal.price * purchase.quantity)
-    %tr.deal
-      %td{colspan: 2}
-        %span.sub_total_text Sub Total
-      %td.price= purchases_total(purchases)
   %tr.grand_total
-    %td{colspan: 2}
+    %td{colspan: 3}
       %span.total_text Grand Total
     %td.price= purchases_total(@data_file.purchases)
