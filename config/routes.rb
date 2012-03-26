@@ -1,5 +1,8 @@
 DataEngineering::Application.routes.draw do
 
+  resources :users, :only => [:new, :create]
+  match '/signup',  to: 'users#new'
+
   resources :data_files, :only => [:new, :create]
 
   root :to => 'data_files#new'

@@ -4,6 +4,8 @@ When /^I go to (.+)$/ do |page_name|
     visit '/'
   when 'the file import page'
     visit '/data_files/new'
+  when 'the signup page'
+    visit '/signup'
   else
     raise "Unknown page: #{page_name}"
   end
@@ -34,4 +36,8 @@ end
 Then /^I should see a grand total of "([^"]*)"$/ do |expected_total|
   grand_total = page.find(".grand_total").find(".price")
   grand_total.should have_content expected_total
+end
+
+Then /^I should see a validation error "([^"]*)"$/ do |error|
+  page.should have_content error
 end
