@@ -38,8 +38,8 @@ class DataFile
 
   # Since this model is never persisted, we keep a ref of the objects we do save in here, so we can
   # show something useful on successful saves.
-  attr_accessor :data, :deals, :purchases
-  attr_accessible :data
+  attr_accessor :data, :deals, :purchases, :allow_duplicate
+  attr_accessible :data, :allow_duplicate
 
   # These are the headers we are looking for. This, combined with a lambda we use in parsing the file
   # (@see #initialize) let's the user have the fields in any order in the file.
@@ -53,7 +53,9 @@ class DataFile
   }
 
   def initialize(attributes = {})
+    super(attributes)
     if attributes.present?
+      @allow_duplicate = attributes[:allow_duplicate]
       file = attributes[:data]
       contents = file.present? ? file.read : ""
       header_converter = lambda { |h| HEADER_MAPPINGS[h].to_sym rescue h }
@@ -83,6 +85,7 @@ class DataFile
 
       deal = find_or_initialize_deal_by(deal_data)
       purchase = Purchase.new(purchase_data)
+      purchase.allow_duplicate = @allow_duplicate
       [deal, purchase].each { |thing| thing.line_num = i + 1}
       deal.purchases << purchase
 

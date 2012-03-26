@@ -9,4 +9,8 @@
         = f.label :data, data_file_label_content_with_link
         = f.file_field :data, :class => 'input-xlarge'
       .span6
+        = f.label :allow_duplicate, :class => 'checkbox' do
+          = f.check_box :allow_duplicate, {}, true, false
+          Allow duplicate submission
+      .span6
         = f.submit "Upload", :class => "btn btn-large btn-primary"

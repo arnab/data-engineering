@@ -16,3 +16,11 @@ Scenario: Order of fields in file is flexible (as long as all the required field
     And I should have "3" "Deals" in the DB
     And I should have "4" "Purchases" in the DB
     And I should see a grand total of "$95.00"
+
+Scenario: It's possible to force a duplicate submission
+  Given I have already uploaded the file "example_input.txt"
+  When I knowingly upload the file "example_input.txt" again
+  Then I should see that it was successfully imported
+    And I should have "3" "Deals" in the DB
+    And I should have "8" "Purchases" in the DB
+    And I should see a grand total of "$95.00"

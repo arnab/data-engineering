@@ -1,10 +1,15 @@
+def upload(filename, allow_duplicate=false)
+  path = File.join(::Rails.root, 'examples', filename)
+  attach_file("file", path)
+  check 'Allow duplicate submission' if allow_duplicate
+  click_button("Upload")
+end
+
 When /^I upload the file "([^"]*)"$/ do |filename|
   steps %Q{
       When I go to the file import page
     }
-  path = File.join(::Rails.root, 'examples', filename)
-  attach_file("file", path)
-  click_button("Upload")
+  upload(filename)
 end
 
 When /^I upload the file "([^"]*)" again$/ do |filename|
@@ -18,4 +23,11 @@ Given /^I have already uploaded the file "([^"]*)"$/ do |filename|
     When I upload the file "#{filename}"
     Then I should see that it was successfully imported
   }
+end
+
+When /^I knowingly upload the file "([^"]*)" again$/ do |filename|
+  steps %Q{
+      When I go to the file import page
+    }
+  upload(filename, allow_duplicate=true)
 end
