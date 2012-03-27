@@ -65,5 +65,5 @@ Right now the POST of the file renders the view. This can confuse users if they 
 ## Huge files
 Right now, everything is done in the HTTP request. Meaning the experience will be bad if the file is huge. The first step will be using something like pjax/ajax. Eventually the file should be processed asynchronously: using something like background-job or resque (or perhaps SQS messages that talk to the processing apps that are running separately). But then again, we don't want to prematurely optimize.
 
-## Code refractor
+## Code refactor
 Eventually the DataFile model has become kind of big. Perhaps we should create a separate DataFileLine class and have that hold one Deal and one Purchase and the DataFile model holing a collection of DataFileLines. Just an idea.
