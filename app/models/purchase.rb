@@ -5,7 +5,7 @@ class Purchase < ActiveRecord::Base
   attr_accessor :line_num, :allow_duplicate
   attr_accessible :purchaser_name, :quantity, :allow_duplicate
 
-  validates_presence_of :purchaser_name, :deal_id
+  validates_presence_of :purchaser_name
 
   validates :quantity,
     presence: true,
