@@ -33,6 +33,7 @@ group :test, :development do
 end
 
 group :test do
+  gem 'spork', '~> 0.9.0'
   gem 'capybara', '1.1.2'
   gem 'cucumber-rails', '~> 1.3.0'
   gem 'database_cleaner', '~> 0.7.0'
