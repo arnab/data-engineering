@@ -66,7 +66,7 @@ class DataFile
   }
 
   def header_converter
-    lambda { |h| HEADER_MAPPINGS[h].to_sym rescue h }
+    lambda { |h| HEADER_MAPPINGS[h].to_sym rescue h.to_sym }
   end
 
   def parse_contents_of!(uploaded_file)

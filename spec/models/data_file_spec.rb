@@ -26,8 +26,21 @@ describe DataFile do
     it { should be_valid }
   end
 
-  # describe "#header_converter" do
-  #   subject { @data_file.header_converter }
-  #   it { should == "" }
-  # end
+  describe "#header_converter" do
+    describe "given a known header" do
+      subject { @data_file.header_converter.call('purchase count') }
+      it { should == :quantity }
+    end
+
+    describe "given a unknown header" do
+      subject { @data_file.header_converter.call('foggy') }
+      it { should == :foggy }
+    end
+
+    describe "given a nil header" do
+      subject { lambda { @data_file.header_converter.call(nil) } }
+      it { should raise_error }
+    end
+
+  end
 end
