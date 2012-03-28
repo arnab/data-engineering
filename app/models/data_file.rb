@@ -41,6 +41,19 @@ class DataFile
   attr_accessor :data, :deals, :purchases, :allow_duplicate
   attr_accessible :data, :allow_duplicate
 
+  def initialize(attributes = {})
+    if attributes.present?
+      @allow_duplicate = attributes[:allow_duplicate]
+      parse_contents_of!(attributes[:data])
+    end
+  end
+
+  def persisted?
+    # DataFiles are never persisted to the DB, as is
+    # @see #import
+    false
+  end
+
   # These are the headers we are looking for. This, combined with a lambda we use in parsing the file
   # (@see #initialize) let's the user have the fields in any order in the file.
   HEADER_MAPPINGS ={
@@ -52,25 +65,18 @@ class DataFile
     'merchant name'    => 'merchant_name'
   }
 
-  def initialize(attributes = {})
-    if attributes.present?
-      @allow_duplicate = attributes[:allow_duplicate]
-      file = attributes[:data]
-      contents = file.present? ? file.read : ""
-      header_converter = lambda { |h| HEADER_MAPPINGS[h].to_sym rescue h }
-      @data = CSV.parse(
-        contents,
-        col_sep: "\t",
-        headers: :first_row, return_headers: false, header_converters: header_converter,
-        converters: :all
-      )
-    end
+  def header_converter
+    lambda { |h| HEADER_MAPPINGS[h].to_sym rescue h }
   end
 
-  def persisted?
-    # DataFiles are never persisted to the DB, as is
-    # @see #import
-    false
+  def parse_contents_of!(uploaded_file)
+    contents = uploaded_file.present? ? uploaded_file.read : ""
+    @data = CSV.parse(
+      contents,
+      col_sep: "\t",
+      headers: :first_row, return_headers: false, header_converters: header_converter,
+      converters: :all
+    )
   end
 
   def parse_purchases_and_deals!
